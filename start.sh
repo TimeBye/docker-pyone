@@ -14,7 +14,7 @@ if [ ! -f "/root/PyOne/mongodb.lock" ];then
 else
     redis-server &
     aria2c --conf-path=/data/aria2/aria2.conf &
-    mongod -auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log &
+    mongod --auth --bind_ip 127.0.0.1 --port 27017 --dbpath /data/db --fork --logpath /data/log/mongodb.log &
     wait $!
 fi
 
