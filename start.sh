@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -f "/root/PyOne/config.py" ];then
-    mv /root/PyOne.sample /root/PyOne
+    mv /root/PyOne.sample/* /root/PyOne
     cp -f /root/PyOne/config.py.sample /root/PyOne/config.py
 fi
 
@@ -19,3 +19,5 @@ wait $!
 cd /root/PyOne
 gunicorn -k eventlet -b 0.0.0.0:34567 run:app &
 wait $!
+
+cat
