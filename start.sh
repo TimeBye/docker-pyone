@@ -1,9 +1,15 @@
 #!/bin/bash
 
+if [ ! -f "/root/PyOne/config.py" ];then
+    git clone https://github.com/abbeyokgo/PyOne.git /root/PyOne
+    pip install -r requirements.txt
+    cp /root/PyOne/config.py.sample /root/PyOne/config.py
+fi
+
 if [ ! -f "/data/mongodb.lock" ];then
-mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log &
-wait $!
-touch /data/mongodb.lock
+    mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log &
+    wait $!
+    touch /data/mongodb.lock
 fi
 
 redis-server &
