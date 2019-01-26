@@ -5,10 +5,10 @@ if [ ! -f "/root/PyOne/config.py" ];then
     cp -f /root/PyOne/config.py.sample /root/PyOne/config.py
 fi
 
-if [ ! -f "/data/mongodb.lock" ];then
+if [ ! -f "/root/PyOne/mongodb.lock" ];then
     mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log &
     wait $!
-    touch /data/mongodb.lock
+    touch /root/PyOne/mongodb.lock
 fi
 
 redis-server &
