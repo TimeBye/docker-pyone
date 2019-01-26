@@ -1,9 +1,8 @@
 #!/bin/bash
 
 if [ ! -f "/root/PyOne/config.py" ];then
-    git clone https://github.com/abbeyokgo/PyOne.git /root/PyOne
-    pip install -r requirements.txt
-    cp /root/PyOne/config.py.sample /root/PyOne/config.py
+    mv /root/PyOne.sample /root/PyOne
+    cp -f /root/PyOne/config.py.sample /root/PyOne/config.py
 fi
 
 if [ ! -f "/data/mongodb.lock" ];then
