@@ -1,5 +1,10 @@
 # Docker-PyOne
 
+[![Docker Repository on Quay](https://quay.io/repository/setzero/pyone/status "Docker Repository on Quay")](https://quay.io/repository/setzero/pyone)
+[![Docker Pulls](https://img.shields.io/docker/pulls/setzero/pyone.svg)](https://hub.docker.com/r/setzero/pyone)
+[![](https://images.microbadger.com/badges/image/setzero/pyone.svg)](https://microbadger.com/images/setzero/pyone "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/setzero/pyone.svg)](https://microbadger.com/images/setzero/pyone "Get your own version badge on microbadger.com")
+
 > 👋 本项目受 [thanch2n/pyone](https://hub.docker.com/r/thanch2n/pyone) 启发，借鉴其部分功能，在这里感谢。
 
 ## 运行：
@@ -42,6 +47,7 @@
 - `REFRESH_CACHE_NEW`：使用crontab进行增量更新，默认`*/15 * * * *`，即每15分钟更新一次
 - `REFRESH_CACHE_ALL`：使用crontab进行全量更新，默认`0 3 */1 * *`，即每天凌晨3点更新一次
 - `SSH_PASSWORD`：sshd用户密码，用户名为`root`，若不设置则不启用sshd
+- `ARIA2_SECRET`：aria2的rpc secret，默认`aria2-secret`
 
 ## 持久化：
 
