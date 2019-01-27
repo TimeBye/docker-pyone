@@ -1,13 +1,21 @@
 #!/bin/bash
 
-if [ -z $DISABLE_CRON ];then
-    REFRESH_CACHE_ALL=${REFRESH_CACHE_ALL:-"0 3 */1 * *"}
+if [ -z ${DISABLE_CRON} ];then
     REFRESH_CACHE_NEW=${REFRESH_CACHE_NEW:-"*/15 * * * *"}
+    REFRESH_CACHE_ALL=${REFRESH_CACHE_ALL:-"0 3 */1 * *"}
     rm -rf /tmp/cron.`whoami`
     echo "${REFRESH_CACHE_ALL} python /root/PyOne/function.py UpdateFile all" >> /tmp/cron.`whoami`
     echo "${REFRESH_CACHE_NEW} python /root/PyOne/function.py UpdateFile new" >> /tmp/cron.`whoami`
     crontab -u `whoami` /tmp/cron.`whoami`
     service cron restart
+fi
+
+if [ -n ${SSH_PASSWORD} ];then
+    mkdir -p /var/run/sshd
+    echo root:${SSH_PASSWORD} | chpasswd
+    sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+    /usr/sbin/sshd
+    ssh-keygen -A
 fi
 
 if [ ! -f "/root/PyOne/config.py" ];then

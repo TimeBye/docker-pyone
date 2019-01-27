@@ -1,0 +1,18 @@
+version: "3"
+services:
+  pyone:
+    image: setzero/pyone
+    restart: always
+    ports:
+    - "80:34567"
+    # - "2222:22"
+    environment:
+    - TZ=Asia/Shanghai
+    - PORT=34567
+    # - SSH_PASSWORD=root
+    # - DISABLE_CRON=true
+    - REFRESH_CACHE_ALL=0 3 */1 * *
+    - REFRESH_CACHE_NEW=*/15 * * * *
+    volumes:
+    - ./pyone/data:/data
+    - ./pyone/PyOne:/root/PyOne
