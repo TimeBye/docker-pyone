@@ -1,13 +1,23 @@
 #!/bin/bash
 
 if [ ! -f "/root/PyOne/config.py" ];then
-    mv /root/PyOne.sample/* /root/PyOne
-    cp -f /root/PyOne/config.py.sample /root/PyOne/config.py
+    cp -rf /root/PyOne.sample/* /root/PyOne
+    cp -rf /root/PyOne/config.py.sample /root/PyOne/config.py
+fi
+
+if [ ! -f "/data/aria2/aria2.conf" ];then
+    mkdir -p /data/aria2/download 
+    cp -rf /aria2.conf /data/aria2/aria2.conf
+    touch /data/aria2/aria2.session
+fi
+
+if [ ! -f "/data/mongodb/log/mongodb.log" ];then
+    mkdir -p /data/mongodb/db /data/mongodb/log
 fi
 
 redis-server &
 aria2c --conf-path=/data/aria2/aria2.conf &
-mongod --dbpath /data/mongodb/db --fork --logpath /data/log/mongodb/mongodb.log &
+mongod --dbpath /data/mongodb/db --fork --logpath /data/mongodb/log/mongodb.log &
 wait $!
 
 gunicorn -k eventlet -b 0.0.0.0:${PORT:-34567} run:app &
