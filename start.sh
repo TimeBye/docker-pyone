@@ -16,7 +16,7 @@ if [ ! -f "/data/mongodb/log/mongodb.log" ];then
 fi
 
 if [ ! -f "/root/PyOne/supervisord.conf" ];then
-    cp -rf /root/PyOne/supervisord.conf.sample /root/PyOne/supervisord.conf
+    cp -rf /supervisord.conf /root/PyOne/supervisord.conf
     sed -i "s|34567|${PORT:-34567}|" /root/PyOne/supervisord.conf
 fi
 
@@ -25,5 +25,6 @@ aria2c --conf-path=/data/aria2/aria2.conf &
 mongod --dbpath /data/mongodb/db --fork --logpath /data/mongodb/log/mongodb.log &
 wait $!
 
-supervisord -n -c /root/PyOne/supervisord.conf
+supervisord -c /root/PyOne/supervisord.conf
+tail -f /var/run/pyone.log
 wait
