@@ -15,10 +15,15 @@ if [ ! -f "/data/mongodb/log/mongodb.log" ];then
     mkdir -p /data/mongodb/db /data/mongodb/log
 fi
 
+if [ ! -f "/root/PyOne/supervisord.conf" ];then
+    cp -rf /root/PyOne/supervisord.conf.sample /root/PyOne/supervisord.conf
+    sed -i "s|34567|${PORT:-34567}|" /root/PyOne/supervisord.conf
+fi
+
 redis-server &
 aria2c --conf-path=/data/aria2/aria2.conf &
 mongod --dbpath /data/mongodb/db --fork --logpath /data/mongodb/log/mongodb.log &
 wait $!
 
-gunicorn -k eventlet -b 0.0.0.0:${PORT:-34567} run:app &
+supervisord -c /root/PyOne/supervisord.conf
 wait
