@@ -18,6 +18,7 @@ fi
 if [ ! -f "/root/PyOne/supervisord.conf" ];then
     cp -rf /supervisord.conf /root/PyOne/supervisord.conf
     sed -i "s|34567|${PORT:-34567}|" /root/PyOne/supervisord.conf
+    touch /root/PyOne/pyone.log
 fi
 
 redis-server &
@@ -26,5 +27,5 @@ mongod --dbpath /data/mongodb/db --fork --logpath /data/mongodb/log/mongodb.log 
 wait $!
 
 supervisord -c /root/PyOne/supervisord.conf
-tail -f /var/run/pyone.log
+tail -f /root/PyOne/pyone.log
 wait
