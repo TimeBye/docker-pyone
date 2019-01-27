@@ -1,12 +1,14 @@
 #!/bin/bash
 
-REFRESH_CACHE_ALL=${REFRESH_CACHE_ALL:-"0 3 */1 * *"}
-REFRESH_CACHE_NEW=${REFRESH_CACHE_NEW:-"*/15 * * * *"}
-rm -rf /tmp/cron.`whoami`
-echo "${REFRESH_CACHE_ALL} python /root/PyOne/function.py UpdateFile all" >> /tmp/cron.`whoami`
-echo "${REFRESH_CACHE_NEW} python /root/PyOne/function.py UpdateFile new" >> /tmp/cron.`whoami`
-crontab -u `whoami` /tmp/cron.`whoami`
-service cron restart
+if [ -z $DISABLE_CRON ];then
+    REFRESH_CACHE_ALL=${REFRESH_CACHE_ALL:-"0 3 */1 * *"}
+    REFRESH_CACHE_NEW=${REFRESH_CACHE_NEW:-"*/15 * * * *"}
+    rm -rf /tmp/cron.`whoami`
+    echo "${REFRESH_CACHE_ALL} python /root/PyOne/function.py UpdateFile all" >> /tmp/cron.`whoami`
+    echo "${REFRESH_CACHE_NEW} python /root/PyOne/function.py UpdateFile new" >> /tmp/cron.`whoami`
+    crontab -u `whoami` /tmp/cron.`whoami`
+    service cron restart
+fi
 
 if [ ! -f "/root/PyOne/config.py" ];then
     cp -rf /root/PyOne.sample/* /root/PyOne
