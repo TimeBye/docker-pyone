@@ -25,5 +25,5 @@ aria2c --conf-path=/data/aria2/aria2.conf &
 mongod --dbpath /data/mongodb/db --fork --logpath /data/mongodb/log/mongodb.log &
 wait $!
 
-supervisord -c /root/PyOne/supervisord.conf
+supervisord -n -c /root/PyOne/supervisord.conf
 wait
