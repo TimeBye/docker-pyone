@@ -7,6 +7,8 @@ fi
 
 redis-server &
 aria2c --conf-path=/data/aria2/aria2.conf &
-mongod --dbpath /data/db --fork --logpath /data/log/mongodb.log &
+mongod --dbpath /data/mongodb/db --fork --logpath /data/log/mongodb/mongodb.log &
+wait $!
 
-cd /root/PyOne && gunicorn -k eventlet -b 0.0.0.0:34567 run:app
+gunicorn -k eventlet -b 0.0.0.0:${PORT-:"34567"} run:app &
+wait

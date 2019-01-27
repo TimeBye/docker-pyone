@@ -7,7 +7,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF505
     apt-get update && \
     apt-get install -y mongodb-org redis-server vim && \
     rm -rf /var/lib/apt/lists/* && \
-    mkdir -p /root/PyOne.sample /root/PyOne /data/db /data/log /data/aria2/download && \
+    mkdir -p /root/PyOne.sample /root/PyOne /data/mongodb/db /data/mongodb/log /data/aria2/download && \
     touch /data/aria2/aria2.session && \
     mv /aria2c /usr/local/bin && \
     mv /aria2.conf /data/aria2/aria2.conf && \
@@ -15,6 +15,5 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF505
     git clone https://github.com/abbeyokgo/PyOne.git /root/PyOne.sample && \
     pip install -r /root/PyOne.sample/requirements.txt
 
-EXPOSE 34567
-
+WORKDIR /root/PyOne
 ENTRYPOINT ["/start.sh"]
