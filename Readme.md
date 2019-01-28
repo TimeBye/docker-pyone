@@ -41,9 +41,9 @@
 
 ## 变量：
 
-- `TZ`：时区，默认为UTC标准时区
+- `TZ`：时区，默认`Asia/Shanghai`
 - `PORT`：服务监听端口
-- `DISABLE_CRON`：是否禁用crontab自动刷新缓存，设置任意值则不启用
+- `DISABLE_REFRESH_CACHE`：是否禁用crontab自动刷新缓存，设置任意值则不启用
 - `REFRESH_CACHE_NEW`：使用crontab进行增量更新，默认`*/15 * * * *`，即每15分钟更新一次
 - `REFRESH_CACHE_ALL`：使用crontab进行全量更新，默认`0 3 */1 * *`，即每天凌晨3点更新一次
 - `SSH_PASSWORD`：sshd用户密码，用户名为`root`，若不设置则不启用sshd

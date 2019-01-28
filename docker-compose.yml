@@ -10,7 +10,7 @@ services:
     - TZ=Asia/Shanghai
     - PORT=34567
     # - SSH_PASSWORD=root
-    # - DISABLE_CRON=true
+    # - DISABLE_REFRESH_CACHE=true
     - REFRESH_CACHE_ALL=0 3 */1 * *
     - REFRESH_CACHE_NEW=*/15 * * * *
     volumes:
