@@ -14,8 +14,10 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF505
     rm -rf /var/lib/apt/lists/* && \
     mv /aria2c /usr/local/bin && \
     chmod +x /docker-entrypoint.sh /usr/local/bin/aria2c && \
-    git clone https://github.com/abbeyokgo/PyOne.git /root/PyOne.sample && \
-    pip install -r /root/PyOne.sample/requirements.txt
+    git clone https://github.com/abbeyokgo/PyOne.git /etc/PyOne && \
+    pip install -r /etc/PyOne/requirements.txt && \
+    ssh-keygen -A
 
 WORKDIR /root/PyOne
+VOLUME [ "/data", "/root/PyOne" ]
 ENTRYPOINT ["/docker-entrypoint.sh"]

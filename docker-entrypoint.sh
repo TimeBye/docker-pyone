@@ -15,11 +15,10 @@ if [ -n ${SSH_PASSWORD} ];then
     echo root:${SSH_PASSWORD} | chpasswd
     sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
     /usr/sbin/sshd
-    ssh-keygen -A
 fi
 
 if [ ! -f "/root/PyOne/config.py" ];then
-    cp -rf /root/PyOne.sample/* /root/PyOne
+    cp -rf /etc/PyOne/* /root/PyOne
     cp -rf /root/PyOne/config.py.sample /root/PyOne/config.py
 fi
 
