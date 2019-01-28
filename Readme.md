@@ -13,8 +13,7 @@
 
     ```
     docker run -d --name pyone \
-        -p 80:34567 --restart=always \
-        -e TZ='Asia/Shanghai' \
+        -p 80:80 --restart=always \
         -e REFRESH_CACHE_NEW='*/15 * * * *' \
         -e REFRESH_CACHE_ALL='0 3 */1 * *' \
         -v ~/pyone/data:/data \
@@ -42,12 +41,13 @@
 ## 变量：
 
 - `TZ`：时区，默认`Asia/Shanghai`
-- `PORT`：服务监听端口
+- `PORT`：服务监听端口，默认为80
 - `DISABLE_REFRESH_CACHE`：是否禁用crontab自动刷新缓存，设置任意值则不启用
 - `REFRESH_CACHE_NEW`：使用crontab进行增量更新，默认`*/15 * * * *`，即每15分钟更新一次
 - `REFRESH_CACHE_ALL`：使用crontab进行全量更新，默认`0 3 */1 * *`，即每天凌晨3点更新一次
 - `SSH_PASSWORD`：sshd用户密码，用户名为`root`，若不设置则不启用sshd
 - `ARIA2_SECRET`：aria2的rpc secret，默认`aria2-secret`
+- `HEALTHCHECK_INTERVAL`：健康检查间隔周期，默认`3`秒。
 
 ## 持久化：
 

@@ -4,7 +4,7 @@ services:
     image: setzero/pyone
     restart: always
     ports:
-    - "80:34567"
+    - "80:80"
     # - "2222:22"
     environment:
     - TZ=Asia/Shanghai

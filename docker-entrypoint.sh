@@ -43,7 +43,7 @@ fi
 
 if [ ! -f "/root/PyOne/supervisord.conf" ];then
     cp -rf /supervisord.conf /root/PyOne/supervisord.conf
-    sed -i "s|34567|${PORT:-34567}|" /root/PyOne/supervisord.conf
+    sed -i "s|80|${PORT:-80}|" /root/PyOne/supervisord.conf
     touch /root/PyOne/pyone.log
 fi
 
