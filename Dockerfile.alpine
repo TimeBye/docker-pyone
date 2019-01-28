@@ -1,19 +1,21 @@
 FROM python:2.7-alpine3.8
 
-COPY docker-entrypoint.sh aria2c aria2.conf supervisord.conf /
+COPY docker-entrypoint.sh healthcheck.sh aria2c aria2.conf supervisord.conf /
 
 RUN apk add --no-cache \
         vim \
         git \
+        gcc \
         bash \
         dcron \
         redis \
         tzdata \
         mongodb \
         openssh \
+        musl-dev \
         supervisor && \
     mv /aria2c /usr/local/bin && \
-    chmod +x /docker-entrypoint.sh /usr/local/bin/aria2c && \
+    chmod +x /docker-entrypoint.sh /healthcheck.sh /usr/local/bin/aria2c && \
     git clone https://github.com/abbeyokgo/PyOne.git /etc/PyOne && \
     pip install -r /etc/PyOne/requirements.txt && \
     ssh-keygen -A

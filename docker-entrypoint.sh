@@ -3,19 +3,19 @@
 ln -sf /usr/share/zoneinfo/${TZ:-"Asia/Shanghai"} /etc/localtime
 echo ${TZ:-"Asia/Shanghai"} > /etc/timezone
 
-if [ -z ${DISABLE_CRON} ];then
+echo "* * * * * /healthcheck.sh" > /tmp/cron.`whoami`
+if [ -z ${DISABLE_REFRESH_CACHE} ];then
     REFRESH_CACHE_NEW=${REFRESH_CACHE_NEW:-"*/15 * * * *"}
     REFRESH_CACHE_ALL=${REFRESH_CACHE_ALL:-"0 3 */1 * *"}
-    rm -rf /tmp/cron.`whoami`
     echo "${REFRESH_CACHE_ALL} python /root/PyOne/function.py UpdateFile all" >> /tmp/cron.`whoami`
     echo "${REFRESH_CACHE_NEW} python /root/PyOne/function.py UpdateFile new" >> /tmp/cron.`whoami`
-    crontab -u `whoami` /tmp/cron.`whoami`
-    is_alpine=$(cat /etc/os-release | grep Alpine)
-    if [ -n ${is_alpine} ];then
-        crond
-    else
-        service cron restart
-    fi
+fi
+crontab -u `whoami` /tmp/cron.`whoami`
+cat /etc/os-release | grep Alpine >/dev/null 2>&1
+if [ $? == 0 ];then
+    crond
+else
+    service cron restart
 fi
 
 if [ -n ${SSH_PASSWORD} ];then
@@ -33,7 +33,7 @@ fi
 if [ ! -f "/data/aria2/aria2.conf" ];then
     mkdir -p /data/aria2/download 
     cp -rf /aria2.conf /data/aria2/aria2.conf
-    sed -i "s|aria2-secret|${ARIA2_SECRET:-aria2-secret}|" /data/aria2/aria2.conf
+    sed -i "s|aria2-secret|${ARIA2_SECRET:-"aria2-secret"}|" /data/aria2/aria2.conf
     touch /data/aria2/aria2.session
 fi
 
