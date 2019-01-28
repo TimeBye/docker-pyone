@@ -1,5 +1,8 @@
 #!/bin/bash
 
+ln -sf /usr/share/zoneinfo/${TZ:-"Asia/Shanghai"} /etc/localtime
+echo ${TZ:-"Asia/Shanghai"} > /etc/timezone
+
 if [ -z ${DISABLE_CRON} ];then
     REFRESH_CACHE_NEW=${REFRESH_CACHE_NEW:-"*/15 * * * *"}
     REFRESH_CACHE_ALL=${REFRESH_CACHE_ALL:-"0 3 */1 * *"}
@@ -7,7 +10,12 @@ if [ -z ${DISABLE_CRON} ];then
     echo "${REFRESH_CACHE_ALL} python /root/PyOne/function.py UpdateFile all" >> /tmp/cron.`whoami`
     echo "${REFRESH_CACHE_NEW} python /root/PyOne/function.py UpdateFile new" >> /tmp/cron.`whoami`
     crontab -u `whoami` /tmp/cron.`whoami`
-    service cron restart
+    is_alpine=$(cat /etc/os-release | grep Alpine)
+    if [ -n ${is_alpine} ];then
+        crond
+    else
+        service cron restart
+    fi
 fi
 
 if [ -n ${SSH_PASSWORD} ];then
