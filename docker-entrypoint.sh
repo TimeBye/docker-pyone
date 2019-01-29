@@ -32,6 +32,9 @@ if [ ! -e "/root/PyOne/config.py" ];then
     cp -rf /root/PyOne/config.py.sample /root/PyOne/config.py
 fi
 
+# update config.py
+/update.sh
+
 # fix old version
 if [ ! -e "/root/PyOne/.git" ];then
     cp -rfa /etc/PyOne/.git /etc/PyOne/.gitignore /root/PyOne
