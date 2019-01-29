@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: docker:18.06.1-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 18.06.1-ce
+      - run : |
+          git clone https://github.com/abbeyokgo/PyOne.git
+          cd PyOne && export COMMIT_SHA=$(git log -1 --pretty=format:"%H" | awk '{print substr($1,1,8)}') && cd ..
+          sed -i 'N;2iCOPY PyOne /etc/PyOne' Dockerfile
+          sed -i 'N;2iCOPY PyOne /etc/PyOne' Dockerfile.alpine
+          sed -i 's|git clone.*||' Dockerfile
+          sed -i 's|git clone.*||' Dockerfile.alpine
+          docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PWD
+          docker build -t setzero/pyone:debian-$COMMIT_SHA .
+          docker build -t setzero/pyone:alpine-$COMMIT_SHA -f Dockerfile.alpine .
+          docker push setzero/pyone:debian-$COMMIT_SHA
+          docker push setzero/pyone:alpine-$COMMIT_SHA
+workflows:
+  version: 2
+  build:
+    jobs:
+    - build

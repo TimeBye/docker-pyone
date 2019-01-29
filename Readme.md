@@ -5,7 +5,14 @@
 [![](https://images.microbadger.com/badges/image/setzero/pyone.svg)](https://microbadger.com/images/setzero/pyone "Get your own image badge on microbadger.com")
 [![](https://images.microbadger.com/badges/version/setzero/pyone.svg)](https://microbadger.com/images/setzero/pyone "Get your own version badge on microbadger.com")
 
-> 👋 本项目受 [thanch2n/pyone](https://hub.docker.com/r/thanch2n/pyone) 启发，借鉴其部分功能，在这里感谢。
+> 👋 本项目为 [abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne) docker镜像版本。受 [thanch2n/pyone](https://hub.docker.com/r/thanch2n/pyone) 启发，借鉴其部分功能，在这里向这两个项目的作者表示感谢。
+
+## 版本：
+
+- `latest`：以debian为基础系统，跟踪 [abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne) 的最新提交。
+- `alpine`：以alpine为基础系统，跟踪 [abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne) 的最新提交。
+- `debian-commit_sha`：以debian为基础系统，[abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne) Commit sha对应的提交。
+- `alpine-commit_sha`：以alpine为基础系统，[abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne) Commit sha对应的提交。
 
 ## 运行：
 
