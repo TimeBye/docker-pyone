@@ -10,8 +10,8 @@ jobs:
       - run : |
           git clone https://github.com/abbeyokgo/PyOne.git
           cd PyOne && export COMMIT_SHA=$(git log -1 --pretty=format:"%H" | awk '{print substr($1,1,8)}') && cd ..
-          sed -i 'N;2iCOPY PyOne /etc/PyOne' Dockerfile
-          sed -i 'N;2iCOPY PyOne /etc/PyOne' Dockerfile.alpine
+          sed -i 'N;2aCOPY PyOne /etc/PyOne' Dockerfile
+          sed -i 'N;2aCOPY PyOne /etc/PyOne' Dockerfile.alpine
           sed -i 's|git clone.*||' Dockerfile
           sed -i 's|git clone.*||' Dockerfile.alpine
           docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PWD
