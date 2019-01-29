@@ -2,11 +2,11 @@ version: 2
 jobs:
   build:
     docker:
-      - image: docker:18.06.1-ce-git
+      - image: docker:17.05.0-ce-git
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.1-ce
+          version: 17.05.0-ce
       - run : |
           git clone https://github.com/abbeyokgo/PyOne.git
           cd PyOne && export COMMIT_SHA=$(git log -1 --pretty=format:"%H" | awk '{print substr($1,1,8)}') && cd ..
