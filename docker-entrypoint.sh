@@ -27,18 +27,14 @@ touch /data/aria2/aria2.session
 aria2c -D --conf-path=/data/aria2/aria2.conf
 
 # pyOne
+cp -rfa /etc/PyOne /root
 if [ ! -e "/root/PyOne/config.py" ];then
-    cp -rfa /etc/PyOne /root
     cp -rf /root/PyOne/config.py.sample /root/PyOne/config.py
 fi
 
 # update config.py
 /update.sh
-
-# fix old version
-if [ ! -e "/root/PyOne/.git" ];then
-    cp -rfa /etc/PyOne/.git /etc/PyOne/.gitignore /root/PyOne
-fi
+sed -i "s|ARIA2_SECRET=.*|ARIA2_SECRET=\"${ARIA2_SECRET:-aria2-secret}\"|" /root/PyOne/config.py
 
 # supervisord
 cp -rf /supervisord.conf /root/PyOne/supervisord.conf
