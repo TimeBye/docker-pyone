@@ -1,6 +1,6 @@
 # Docker-PyOne
 
-[![Docker Repository on Quay](https://quay.io/repository/setzero/pyone/status "Docker Repository on Quay")](https://quay.io/repository/setzero/pyone)
+[![CircleCI](https://circleci.com/gh/TimeBye/docker-pyone.svg?style=svg)](https://circleci.com/gh/TimeBye/docker-pyone)
 [![Docker Pulls](https://img.shields.io/docker/pulls/setzero/pyone.svg)](https://hub.docker.com/r/setzero/pyone)
 [![](https://images.microbadger.com/badges/image/setzero/pyone.svg)](https://microbadger.com/images/setzero/pyone "Get your own image badge on microbadger.com")
 [![](https://images.microbadger.com/badges/version/setzero/pyone.svg)](https://microbadger.com/images/setzero/pyone "Get your own version badge on microbadger.com")
