@@ -14,7 +14,6 @@ if [ -n "${SSH_PASSWORD}" ];then
 fi
 
 # redis
-rm -rf /root/PyOne/dump.rdb
 redis-server --daemonize yes
 wait $!
 
