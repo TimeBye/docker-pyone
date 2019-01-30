@@ -17,6 +17,10 @@ jobs:
           docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PWD
           docker build -t setzero/pyone:debian-$COMMIT_SHA .
           docker build -t setzero/pyone:alpine-$COMMIT_SHA -f Dockerfile.alpine .
+          docker tag  setzero/pyone:debian-$COMMIT_SHA setzero/pyone:latest
+          docker tag  setzero/pyone:alpine-$COMMIT_SHA setzero/pyone:alpine
+          docker push setzero/pyone:latest
+          docker push setzero/pyone:alpine
           docker push setzero/pyone:debian-$COMMIT_SHA
           docker push setzero/pyone:alpine-$COMMIT_SHA
 workflows:

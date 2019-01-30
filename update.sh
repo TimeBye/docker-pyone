@@ -34,7 +34,7 @@ update_config(){
     num=`cat config.py | grep "title_pre" | wc -l`
     if [ $num == 0 ]; then
         echo '' >> config.py
-        echo 'title_pre="index of"' >> config.py
+        echo 'title_pre="index of "' >> config.py
     fi
 
     num=`cat config.py | grep "theme" | wc -l`
