@@ -15,7 +15,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF505
     rm -rf /var/lib/apt/lists/* && \
     mv /aria2c /usr/local/bin && \
     git clone https://github.com/abbeyokgo/PyOne.git /etc/PyOne && \
-    sed -n "1,`grep -n "}" /etc/PyOne/update.sh | tail -1 | cut -d: -f1`p" /etc/PyOne/update.sh > /update.sh \
+    sed -n "1,`grep -n "}" /etc/PyOne/update.sh | tail -1 | cut -d: -f1`p" /etc/PyOne/update.sh > /update.sh && \
     chmod +x /docker-entrypoint.sh /healthcheck.sh /update.sh /usr/local/bin/aria2c && \
     pip install -r /etc/PyOne/requirements.txt && \
     ssh-keygen -A
