@@ -10,6 +10,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF505
         cron \
         mongodb-org \
         redis-server \
+        netcat-openbsd \
         openssh-server && \
     rm -rf /var/lib/apt/lists/* && \
     mv /aria2c /usr/local/bin && \

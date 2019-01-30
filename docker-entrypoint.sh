@@ -10,14 +10,17 @@ if [ -n "${SSH_PASSWORD}" ];then
     echo root:${SSH_PASSWORD} | chpasswd
     sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
     /usr/sbin/sshd
+    wait $!
 fi
 
 # redis
 redis-server --daemonize yes
+wait $!
 
 # mongodb
 mkdir -p /data/mongodb/db /data/mongodb/log
 mongod --dbpath /data/mongodb/db --fork --logpath /data/mongodb/log/mongodb.log
+wait $!
 
 # aria2
 mkdir -p /data/aria2/download 
@@ -25,6 +28,7 @@ cp -rf /aria2.conf /data/aria2/aria2.conf
 sed -i "s|rpc-secret=.*|rpc-secret=${ARIA2_SECRET:-aria2-secret}|" /data/aria2/aria2.conf
 touch /data/aria2/aria2.session
 aria2c -D --conf-path=/data/aria2/aria2.conf
+wait $!
 
 # pyOne
 cp -rfa /etc/PyOne /root
@@ -40,6 +44,7 @@ sed -i "s|ARIA2_SECRET=.*|ARIA2_SECRET=\"${ARIA2_SECRET:-aria2-secret}\"|" /root
 cp -rf /supervisord.conf /root/PyOne/supervisord.conf
 sed -i "s|0.0.0.0.*|0.0.0.0:${PORT:-80} run:app|" /root/PyOne/supervisord.conf
 supervisord -c /root/PyOne/supervisord.conf
+wait $!
 
 # crontab
 echo "* * * * * /healthcheck.sh" > /tmp/cron.`whoami`
