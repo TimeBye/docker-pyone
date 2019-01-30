@@ -6,6 +6,7 @@ for ((i=0;i<60;i=(i+step))); do
     cd /root/PyOne
     nc -z 127.0.0.1 6379
     if [ $? != 0 ];then
+        rm -rf /root/PyOne/dump.rdb
         redis-server --daemonize yes
     fi
     nc -z 127.0.0.1 27017
