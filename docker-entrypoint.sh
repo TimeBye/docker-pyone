@@ -27,10 +27,12 @@ touch /data/aria2/aria2.session
 aria2c -D --conf-path=/data/aria2/aria2.conf
 
 # pyOne
-cp -rfa /etc/PyOne /root
 if [ -e "/root/PyOne/config.py" ];then
-    cp -rf /root/PyOne/config.py /root/PyOne/self_config.py
+    if [ ! -e "/root/PyOne/self_config.py" ];then
+        cp -rf /root/PyOne/config.py /root/PyOne/self_config.py
+    fi
 fi
+cp -rfa /etc/PyOne /root
 if [ ! -e "/root/PyOne/self_config.py" ];then
     cp -rf /root/PyOne/self_config.py.sample /root/PyOne/self_config.py
 fi
