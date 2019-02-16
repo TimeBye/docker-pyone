@@ -28,14 +28,17 @@ aria2c -D --conf-path=/data/aria2/aria2.conf
 
 # pyOne
 cp -rfa /etc/PyOne /root
-if [ ! -e "/root/PyOne/config.py" ];then
-    cp -rf /root/PyOne/config.py.sample /root/PyOne/config.py
+if [ -e "/root/PyOne/config.py" ];then
+    cp -rf /root/PyOne/config.py /root/PyOne/self_config.py
+fi
+if [ ! -e "/root/PyOne/self_config.py" ];then
+    cp -rf /root/PyOne/self_config.py.sample /root/PyOne/self_config.py
 fi
 
 # update config.py
 source /update.sh
-update_config
-sed -i "s|ARIA2_SECRET=.*|ARIA2_SECRET=\"${ARIA2_SECRET:-aria2-secret}\"|" /root/PyOne/config.py
+upgrade
+sed -i "s|ARIA2_SECRET=.*|ARIA2_SECRET=\"${ARIA2_SECRET:-aria2-secret}\"|" /root/PyOne/self_config.py
 
 # supervisord
 cp -rf /supervisord.conf /root/PyOne/supervisord.conf
@@ -47,8 +50,8 @@ echo "* * * * * /healthcheck.sh" > /tmp/cron.`whoami`
 if [ -z ${DISABLE_REFRESH_CACHE} ];then
     REFRESH_CACHE_NEW=${REFRESH_CACHE_NEW:-"*/15 * * * *"}
     REFRESH_CACHE_ALL=${REFRESH_CACHE_ALL:-"0 3 */1 * *"}
-    echo "${REFRESH_CACHE_ALL} python /root/PyOne/function.py UpdateFile all" >> /tmp/cron.`whoami`
-    echo "${REFRESH_CACHE_NEW} python /root/PyOne/function.py UpdateFile new" >> /tmp/cron.`whoami`
+    echo "${REFRESH_CACHE_ALL} python /root/PyOne/app/utils/updatefile.py UpdateFile all" >> /tmp/cron.`whoami`
+    echo "${REFRESH_CACHE_NEW} python /root/PyOne/app/utils/updatefile.py UpdateFile new" >> /tmp/cron.`whoami`
 fi
 crontab -u `whoami` /tmp/cron.`whoami`
 cat /etc/os-release | grep Alpine >/dev/null 2>&1
@@ -60,6 +63,7 @@ fi
 
 # show log
 touch /root/PyOne/pyone.log
+touch /root/PyOne/.install
 tail -f /root/PyOne/pyone.log
 
 wait
