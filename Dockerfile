@@ -1,19 +1,31 @@
-FROM python:2.7.15-jessie
+FROM centos:7
 
 COPY docker-entrypoint.sh healthcheck.sh aria2c aria2.conf supervisord.conf /
 
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5 && \
-    echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.6 main" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list && \
-    apt-get update -q && \
-    apt-get install -yq --no-install-recommends \
+RUN \
+    echo '[mongodb-org-4.0]' >> /etc/yum.repos.d/mongodb-org-4.0.repo && \
+    echo 'name=MongoDB Repository' >> /etc/yum.repos.d/mongodb-org-4.0.repo && \
+    echo 'baseurl=https://repo.mongodb.org/yum/redhat/7/mongodb-org/4.0/x86_64/' >> /etc/yum.repos.d/mongodb-org-4.0.repo && \
+    echo 'gpgcheck=1' >> /etc/yum.repos.d/mongodb-org-4.0.repo && \
+    echo 'enabled=1' >> /etc/yum.repos.d/mongodb-org-4.0.repo && \
+    echo 'gpgkey=https://www.mongodb.org/static/pgp/server-4.0.asc' >> /etc/yum.repos.d/mongodb-org-4.0.repo
+
+RUN \
+    curl -s https://bootstrap.pypa.io/get-pip.py | python && \
+    yum -y install epel-release &&
+    yum makecache && \
+    yum -y update && \
+    yum -y install \
+        nc \
         vim \
-        cron \
+        git \
         lsof \
+        redis \
+        cronie \
         mongodb-org \
-        redis-server \
-        netcat-openbsd \
         openssh-server && \
-    rm -rf /var/lib/apt/lists/* && \
+    yum clean all && \
+    pip install supervisor && \
     mv /aria2c /usr/local/bin && \
     git clone https://github.com/abbeyokgo/PyOne.git /etc/PyOne && \
     sed -n "1,`grep -n "}" /etc/PyOne/update.sh | tail -1 | cut -d: -f1`p" /etc/PyOne/update.sh > /update.sh && \

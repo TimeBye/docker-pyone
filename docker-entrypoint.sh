@@ -56,11 +56,12 @@ if [ -z ${DISABLE_REFRESH_CACHE} ];then
     echo "${REFRESH_CACHE_NEW} python /root/PyOne/app/utils/updatefile.py UpdateFile new" >> /tmp/cron.`whoami`
 fi
 crontab -u `whoami` /tmp/cron.`whoami`
-cat /etc/os-release | grep Alpine >/dev/null 2>&1
-if [ $? == 0 ];then
-    crond
-else
-    service cron restart
+OS_NAME=$(cat /etc/os-release | grep "^NAME=" | awk -F '=' '{print $2}')
+if [[ $OS_NAME =~ "CentOS" || $OS_NAME =~ "Alpine" ]];then
+    echo "crond"
+fi
+if [[ $OS_NAME =~ "Debian" ]];then
+    echo "service cron restart"
 fi
 
 # show log

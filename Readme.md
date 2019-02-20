@@ -9,10 +9,12 @@
 
 ## 版本：
 
-- `latest`：以debian为基础系统，跟踪 [abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne) 的最新提交。
-- `alpine`：以alpine为基础系统，跟踪 [abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne) 的最新提交。
-- `debian-commit_sha`：以debian为基础系统，[abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne) Commit sha对应的提交。
-- `alpine-commit_sha`：以alpine为基础系统，[abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne) Commit sha对应的提交。
+- `latest`：以centos为基础系统，跟踪 [abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne/commits/master) 的最新提交。
+- `debian`：以debian为基础系统，跟踪 [abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne/commits/master) 的最新提交。
+- `alpine`：以alpine为基础系统，跟踪 [abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne/commits/master) 的最新提交。
+- `centos-commit_sha`：以centos为基础系统，[abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne/commits/master) Commit sha对应的提交。
+- `debian-commit_sha`：以debian为基础系统，[abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne/commits/master) Commit sha对应的提交。
+- `alpine-commit_sha`：以alpine为基础系统，[abbeyokgo/PyOne](https://github.com/abbeyokgo/PyOne/commits/master) Commit sha对应的提交。
 
 ## 运行：
 
