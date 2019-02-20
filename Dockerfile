@@ -12,7 +12,7 @@ RUN \
 
 RUN \
     curl -s https://bootstrap.pypa.io/get-pip.py | python && \
-    yum -y install epel-release &&
+    yum -y install epel-release && \
     yum makecache && \
     yum -y update && \
     yum -y install \
